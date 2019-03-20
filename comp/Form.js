@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
-const useInputValue = ([value, setValue]) => {
-  // const [value, setValue] = useState(initialValue);
+const useInputValue = (initialValue) => {
+  const [value, setValue] = useState(initialValue.text);
 // console.log(value+initialValue)
+  useEffect(()=>{
+    setValue(initialValue.text)
+    // console.log(initialValue)
+  },[initialValue])
   return {
     value,
     onChange: e => setValue(e.target.value),
@@ -10,9 +14,8 @@ const useInputValue = ([value, setValue]) => {
   };
 };
 
-export default ({ onSubmit, children, value, ref }) => {
+export default ({ onSubmit, children, value}) => {
   const { resetValue, ...text } = useInputValue(value);
-  if(ref)ref.text=text.value
   return (
     <form
       onSubmit={e => {

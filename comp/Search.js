@@ -9,19 +9,21 @@ export default ({ name }) =>
   </>;
 
 const MediaType={movie:"Movies", music:"Music", software:"Apps", ebook:"Books",}
-const prevSearches={}
 const useState1 = initKey => {
   const [skey, setKey] = useState(initKey)
-  const value = useState("");
+  // const value = useState("");
   const datas = useState([]);
   const prevText = useRef("")
+  const prevSearches = useRef({}).current
   let selSearches=prevSearches[skey]
   if(!selSearches)selSearches=prevSearches[skey]={
     text: prevText.current, data: []
   }
-  useEffect(()=>{
-    if(selSearches.text)value[1](selSearches.text)
-  },[skey])
+  if(!selSearches.data.length) selSearches.text=prevText.current
+  // console.log(selSearches)
+  // useEffect(()=>{
+  //   if(selSearches.text)value[1](selSearches.text)
+  // },[skey])
   // value[1](selSearches.text)
   const onSetKey = key => {
     prevText.current = selSearches.text// = value[0]
@@ -34,10 +36,10 @@ const useState1 = initKey => {
     })
   }
   // console.log(selSearches.text)
-  return [skey,onSetKey,value,selSearches,onSearch,prevText]
+  return [skey,onSetKey,selSearches,onSearch]
 }
 const BtnSelector = ({initKey="movie"}) => {
-  const [skey, setKey,value, selSearches, onSubmit,ref] = useState1(initKey)
+  const [skey, setKey, selSearches, onSubmit] = useState1(initKey)
   return<>{
     Object.entries(MediaType).map(
     ([key, children]) => 
@@ -47,8 +49,7 @@ const BtnSelector = ({initKey="movie"}) => {
       }}/>
     )}<br/><br/>
     <Form onSubmit={onSubmit}
-      value={value}
-      ref={selSearches}>{/*selSearches.text*/}
+      value={selSearches}>{/*selSearches.text*/}
       <button>Search</button>
     </Form><hr/>
     {selSearches.data.map(item =>
@@ -58,12 +59,6 @@ const BtnSelector = ({initKey="movie"}) => {
   
   </>
 }
-
-const MediaButton = ({media}) => {
-  const [value, setValue] = useState({text: '', data: []});
-}
-
-// const Btn = 
 
 //https://material-ui.com/demos/selection-controls/
 //https://github.com/azz/styled-css-grid
