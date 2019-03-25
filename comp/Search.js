@@ -10,42 +10,38 @@ export default ({ name }) =>
 
 const MediaType={movie:"Movies", music:"Music", software:"Apps", ebook:"Books",}
 const useState1 = initKey => {
-  const [skey, setKey] = useState(initKey)
+  const [skey, setSKey] = useState(initKey)
   // const value = useState("");
-  const datas = useState([]);
-  const prevText = useRef("")
+  const [_,setData] = useState(null);
+  // const prevText = useRef("")
   const prevSearches = useRef({}).current
   let selSearches=prevSearches[skey]
   if(!selSearches)selSearches=prevSearches[skey]={
-    text: prevText.current, data: []
-  }
-  if(!selSearches.data.length) selSearches.text=prevText.current
-  // console.log(selSearches)
-  // useEffect(()=>{
-  //   if(selSearches.text)value[1](selSearches.text)
-  // },[skey])
-  // value[1](selSearches.text)
-  const onSetKey = key => {
-    prevText.current = selSearches.text// = value[0]
-    setKey(key)
-  }
+    text: "", data: []}
+  else 
+    if(!selSearches.data.length)
+      selSearches.text=""
+  // const onSetKey = key => {
+  //   prevText.current = selSearches.text// = value[0]
+  //   setSKey(key)
+  // }
   const onSearch = term => {
-    selSearches.text=term
-    itunesSearch(term,skey,data=>{
-      datas[1](selSearches.data=data.results)
+    itunesSearch(term, skey, data=>{
+      selSearches.text=term
+      setData(selSearches.data=data.results)
     })
   }
   // console.log(selSearches.text)
-  return [skey,onSetKey,selSearches,onSearch]
+  return [skey,setSKey,selSearches,onSearch]
 }
 const BtnSelector = ({initKey="movie"}) => {
-  const [skey, setKey, selSearches, onSubmit] = useState1(initKey)
+  const [skey, setSKey, selSearches, onSubmit] = useState1(initKey)
   return<>{
     Object.entries(MediaType).map(
     ([key, children]) => 
       <button {...{key, children, 
       disabled: key==skey,
-      onClick: () => setKey(key)
+      onClick: () => setSKey(key)
       }}/>
     )}<br/><br/>
     <Form onSubmit={onSubmit}
