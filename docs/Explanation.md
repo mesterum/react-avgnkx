@@ -1,3 +1,6 @@
+https://stackblitz.com/edit/react-avgnkx
+
+
 ### How it works?
 
 1. #### Fetch data
@@ -80,7 +83,7 @@ To understand the importance of `setData` try to remove it and see that after a 
 </Form><hr/>
 ...
 ```
-I pass a Search handler and the value that should be in the text box. The value is in `selSearches.text` but I pass the container to be asured that the `Form` component is rerendered on every MediaType change.
+I pass a Search handler and the value that should be in the text box. The value is in `selSearches.text` but I pass the container to be assured that the `Form` component is re rendered on every MediaType change.
 
 I start `Form` with another custom hook. 
 ```javascript
@@ -132,6 +135,6 @@ The input text is inside a form to respond to `enter` key with form's `onSubmit`
 ```
 The pair of empty tags `<> ... </>` is a shortcut for the `<React.Fragment>` tag to hold multiple elements in one.
 
-Beware of `return` statement, if the value that you want to return starts on the next line, will return nothing like `return;` statement due to automatic semicolon insertion behavior of javascript.
+Beware of `return` statement, if the value that you want to return starts on the next line, will return nothing like `return;` statement due to automatic semicolon insertion behaviour of javascript.
 
 The definition of `Item` component is not interesting.
